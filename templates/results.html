@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranked Resumes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Ranked Resumes</h1>
+        {% if ranked_resumes and ranked_resumes|length > 0 %}
+            {% set top_resume = ranked_resumes[0] %}
+            <h2>Top Match</h2>
+            <p>
+                <strong>{{ top_resume[0] }}</strong>
+                — {{ "%.2f"|format(top_resume[1] * 100) }}%
+                — <a href="{{ url_for('download_resume', filename=top_resume[0]) }}">Download</a>
+            </p>
+
+            {% if ranked_resumes|length > 1 %}
+                <h3>Other Matches</h3>
+                <ul>
+                    {% for resume, score in ranked_resumes[1:] %}
+                        <li>
+                            {{ resume }} — {{ "%.2f"|format(score * 100) }}%
+                            — <a href="{{ url_for('download_resume', filename=resume) }}">Download</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p><a href="{{ url_for('export_csv', job_description=job_description) }}">Download CSV</a></p>
+        {% else %}
+            <p>No resumes found to rank.</p>
+        {% endif %}
+        <a href="/">Back to Job Description</a>
+    </div>
+</body>
+</html>

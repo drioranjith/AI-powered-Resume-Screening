@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Screening Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Screening Tool</h1>
+        <p>Enter a job description to rank existing resumes in the system.</p>
+        <form action="/" method="post">
+            <label for="job_description">Job Description:</label><br>
+            <textarea id="job_description" name="job_description" rows="8" cols="60" placeholder="Paste the job description here..." required></textarea><br><br>
+            <button type="submit">Rank Resumes</button>
+        </form>
+    </div>
+</body>
+</html>
